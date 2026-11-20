@@ -1,0 +1,21 @@
+{
+  "name": "structurizr-dsl-cli",
+  "version": "0.2.0",
+  "description": "Command line for the Structurizr DSL parser and resolver",
+  "type": "module",
+  "bin": {
+    "structurizr-dsl": "dist/cli/bin.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node src/bin.ts",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Structurizr DSL",
+  "scopeName": "source.structurizr",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#substitution"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.structurizr",
+          "match": "^\\s*#.*$"
+        },
+        {
+          "name": "comment.line.double-slash.structurizr",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.structurizr",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.structurizr",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [
+            {
+              "name": "variable.other.substitution.structurizr",
+              "match": "\\$\\{[^}]*\\}"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.structurizr",
+          "begin": "\"",
+          "end": "\"|$",
+          "patterns": [
+            {
+              "name": "constant.character.escape.structurizr",
+              "match": "\\\\[\"\\\\]"
+            },
+            {
+              "name": "variable.other.substitution.structurizr",
+              "match": "\\$\\{[^}]*\\}"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.structurizr",
+          "begin": "\\u201c",
+          "end": "\\u201d|$",
+          "patterns": [
+            {
+              "name": "variable.other.substitution.structurizr",
+              "match": "\\$\\{[^}]*\\}"
+            }
+          ]
+        }
+      ]
+    },
+    "directives": {
+      "name": "keyword.control.directive.structurizr",
+      "match": "(?<![\\w.\\-])![A-Za-z]+"
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.relationship.structurizr",
+          "match": "(?<!\\S)(?:--[A-Za-z0-9_.]+->|-/>|->)(?!\\S)"
+        },
+        {
+          "name": "keyword.operator.assignment.structurizr",
+          "match": "(?<=\\s)=(?=\\s)"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "entity.name.type.element.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:person|softwareSystem|container|component|deploymentEnvironment|deploymentGroup|deploymentNode|infrastructureNode|softwareSystemInstance|containerInstance|instanceOf|element)(?![\\w.\\-])"
+        },
+        {
+          "name": "keyword.control.structure.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:workspace|extends|model|views|configuration|styles|archetypes|terminology|animation|users|light|dark|perspectives|perspective|group|relationship)(?![\\w.\\-])"
+        },
+        {
+          "name": "keyword.other.view.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:systemLandscape|systemContext|filtered|dynamic|deployment|custom|image|include|exclude|autoLayout|default|title|theme|themes|plantuml|mermaid|kroki|branding)(?![\\w.\\-])"
+        },
+        {
+          "name": "variable.other.property.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:name|description|technology|tags|tag|url|properties|instances|healthCheck|scope|visibility|value|metadata)(?![\\w.\\-])"
+        },
+        {
+          "name": "support.type.property-name.style.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:shape|icon|width|height|background|color|colour|stroke|strokeWidth|fontSize|border|opacity|thickness|style|routing|jump|position)(?![\\w.\\-])"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:true|false)(?![\\w.\\-])"
+        },
+        {
+          "name": "constant.other.color.structurizr",
+          "match": "(?<!\\S)#[0-9A-Fa-f]{3,8}(?!\\S)"
+        },
+        {
+          "name": "constant.numeric.structurizr",
+          "match": "(?<![\\w.\\-])\\d+(?:\\.\\d+)?(?![\\w.\\-])"
+        },
+        {
+          "name": "support.constant.structurizr",
+          "match": "(?i)(?<![\\w.\\-])(?:Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|Terminal|Shell|MobileDevicePortrait|MobileDeviceLandscape|Component|solid|dashed|dotted|Direct|Orthogonal|Curved|tb|bt|lr|rl|read|write|square|round|curly|angle|double-angle|none|hierarchical|flat|landscape|softwaresystem|private|public)(?![\\w.\\-])"
+        }
+      ]
+    },
+    "substitution": {
+      "name": "variable.other.substitution.structurizr",
+      "match": "\\$\\{[^}]*\\}"
+    }
+  }
+}
