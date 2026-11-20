@@ -21,7 +21,8 @@ const add = (rel) => {
   if (statSync(abs).isDirectory()) for (const n of readdirSync(abs)) add(join(rel, n));
   else files.push({ name: "extension/" + rel.split(sep).join("/"), data: readFileSync(abs) });
 };
-for (const p of ["package.json", "README.md", "language-configuration.json", "syntaxes", "dist"]) if (existsSync(join(root, p))) add(p);
+for (const p of ["package.json", "README.md", "language-configuration.json", "syntaxes", "dist",
+  "images"]) if (existsSync(join(root, p))) add(p);
 
 // ---- manifest and content types ------------------------------------------------
 const hasReadme = files.some((f) => f.name === "extension/README.md");
