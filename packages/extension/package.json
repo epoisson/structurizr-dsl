@@ -4,8 +4,9 @@
   "description": "Structurizr DSL language support: syntax highlighting, diagnostics, outline, hover, completion, diagram preview and export to SVG, PlantUML and Mermaid",
   "version": "0.2.0",
   "publisher": "local",
-  "license": "UNLICENSED",
+  "license": "unlicense",
   "type": "module",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -89,14 +90,7 @@
           "when": "editorLangId == structurizr",
           "group": "structurizr@2"
         }
-      ],
-	   "activitybar": [
-            {
-                "id": "structurizr",
-                "title": "Structurizr",
-                "icon": "images/basic_icon.svg"
-            }
-        ]
+      ]
     },
     "configuration": {
       "title": "Structurizr DSL",
