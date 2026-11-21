@@ -8,11 +8,12 @@
     "test": "npm test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
+    "version:sync": "node scripts/set-version.mjs",
     "release": "node scripts/release.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "typescript": "^5.8.0"
   },
-  "version": "0.2.2"
+  "version": "0.2.3"
 }

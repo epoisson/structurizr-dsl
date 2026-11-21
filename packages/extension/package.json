@@ -2,7 +2,7 @@
   "name": "structurizr-dsl",
   "displayName": "Structurizr DSL",
   "description": "Structurizr DSL language support: syntax highlighting, diagnostics, outline, hover, completion, diagram preview and export to SVG, PlantUML and Mermaid",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publisher": "local",
   "license": "unlicense",
   "type": "module",
@@ -50,11 +50,11 @@
       },
       {
         "command": "structurizr.exportView",
-        "title": "Structurizr: Export View\u2026"
+        "title": "Structurizr: Export View…"
       },
       {
         "command": "structurizr.exportAllViews",
-        "title": "Structurizr: Export All Views\u2026"
+        "title": "Structurizr: Export All Views…"
       }
     ],
     "menus": {

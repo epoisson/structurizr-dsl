@@ -1,6 +1,6 @@
 {
   "name": "structurizr-dsl-cli",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Command line for the Structurizr DSL parser and resolver",
   "type": "module",
   "bin": {
