@@ -352,7 +352,12 @@ test("the view picker offers the previewed view first", async () => {
 // ---- the real build ---------------------------------------------------------------------------------------------
 test("the BUILT extension exports through the real built exporters (guards the rewritten import paths)", async () => {
   const root = fileURLToPath(new URL("..", import.meta.url));
-  execFileSync(process.execPath, [`${root}scripts/build.mjs`], { stdio: "ignore" });
+  try {
+    execFileSync(process.execPath, [`${root}scripts/build.mjs`], { stdio: "pipe" });
+  } catch (e) {
+    const err = e as { stdout?: Buffer; stderr?: Buffer };
+    throw new Error(`build.mjs failed:\n${err.stderr}\n${err.stdout}`);
+  }
   const h = create();
   const stub = `${root}dist/node_modules/vscode`;
   mkdirSync(stub, { recursive: true });

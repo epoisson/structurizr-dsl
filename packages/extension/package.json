@@ -167,7 +167,7 @@
     "gen:grammar": "node scripts/gen-grammar.ts",
     "build": "node scripts/build.mjs",
     "package": "node scripts/vsix.mjs",
-    "test": "node --test \"test/**/*.test.ts\"",
+    "test": "node --test --test-concurrency=1 \"test/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json"
   }
 }
