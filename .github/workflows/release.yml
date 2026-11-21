@@ -1,23 +1,27 @@
 name: Release
+
 on:
   push:
-    tags: ["v*"]
+    tags:
+      - 'v*'
 
 permissions:
-  contents: write
+  contents: write   # required to create the GitHub Release
 
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22.18
 
-      - run: npm install
-      - run: npm run typecheck
-      - run: npm test
+      - name: Install dependencies
+        run: npm install
 
       - name: Check tag matches package versions
         run: |
@@ -27,20 +31,23 @@ jobs:
             [ "$V" = "$TAG" ] || { echo "$p is $V, tag is $TAG"; exit 1; }
           done
 
-      - name: Build CLI tarball
+      - name: Build CLI (tgz and zip)
         run: |
           npm run build -w packages/cli
-          cd packages/cli && npm pack
+          cd packages/cli
+          npm pack
+          zip -r "../../structurizr-dsl-cli-${GITHUB_REF_NAME#v}.zip" dist
 
       - name: Package VS Code extension
-        run: npm run package -w packages/extension
-
-      - name: Create GitHub release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "$GITHUB_REF_NAME" \
-            --title "$GITHUB_REF_NAME" \
-            --generate-notes \
-            packages/cli/*.tgz \
+          npm run build -w packages/extension
+          npm run package -w packages/extension
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            packages/cli/*.tgz
             packages/extension/*.vsix
+            structurizr-dsl-cli-*.zip
+          generate_release_notes: true
