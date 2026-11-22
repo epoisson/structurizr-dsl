@@ -26,8 +26,8 @@ export interface IO {
   stderr(text: string): void;
 }
 
-export const VERSION = "0.2.3";
-
+//export const VERSION = "0.2.3";
+export const VERSION = "__VERSION__";
 export const HELP = `structurizr-dsl ${VERSION}: parse, check and resolve Structurizr DSL files
 
 Usage:

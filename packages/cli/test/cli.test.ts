@@ -251,14 +251,27 @@ test("export: errors for unknown format, bad flavor, and unexportable views", ()
   assert.match(img.err(), /cannot be exported/);
 });
 
-test("the CLI's VERSION matches its package.json (and every package shares one version)", () => {
-  const pkg = (rel: string) => JSON.parse(readFileSync(new URL(rel, import.meta.url), "utf8")).version;
-  assert.equal(VERSION, pkg("../package.json"));
-  for (const p of ["../../core/package.json", "../../viewer/package.json", "../../exporters/package.json", "../../extension/package.json", "../../../package.json"]) {
-    assert.equal(pkg(p), VERSION, p);
+test("every package.json version matches VERSION", () => {
+  const version = readFileSync(
+    new URL("../../../VERSION", import.meta.url),
+    "utf8"
+  ).trim();
+
+  const pkg = (rel: string) =>
+    JSON.parse(readFileSync(new URL(rel, import.meta.url), "utf8")).version;
+
+  assert.equal(pkg("../package.json"), version);
+
+  for (const p of [
+    "../../core/package.json",
+    "../../viewer/package.json",
+    "../../exporters/package.json",
+    "../../extension/package.json",
+    "../../../package.json",
+  ]) {
+    assert.equal(pkg(p), version, p);
   }
 });
-
 // ---- !include, !const, !var -------------------------------------------------------------------------------
 const SHOP = (inner: string): string => `workspace {\n  model {\n${inner}\n  }\n}\n`;
 

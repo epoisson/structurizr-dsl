@@ -11,6 +11,7 @@ import { stripTypeScriptTypes } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+
 const here = dirname(fileURLToPath(import.meta.url));
 const cliRoot = join(here, "..");
 const dist = join(cliRoot, "dist");
@@ -20,25 +21,66 @@ const sources = [
   { from: join(cliRoot, "..", "exporters", "src"), to: join(dist, "exporters") },
   { from: join(cliRoot, "src"), to: join(dist, "cli") },
 ];
+const repoRoot = join(cliRoot, "../..");
+const version = readFileSync(join(repoRoot, "VERSION"), "utf8").trim();
+const packageDirs = [
+  repoRoot,
+  join(repoRoot, "packages/cli"),
+  join(repoRoot, "packages/core"),
+  join(repoRoot, "packages/viewer"),
+  join(repoRoot, "packages/exporters"),
+  join(repoRoot, "packages/extension"),
+];
 
+for (const dir of packageDirs) {
+  const file = join(dir, "package.json");
+  const pkg = JSON.parse(readFileSync(file, "utf8"));
+
+  pkg.version = version;
+
+  writeFileSync(file, JSON.stringify(pkg, null, 2) + "\n");
+}
 rmSync(dist, { recursive: true, force: true });
 
 let count = 0;
 function build(fromDir, toDir) {
   mkdirSync(toDir, { recursive: true });
+
   for (const name of readdirSync(fromDir)) {
     const from = join(fromDir, name);
+
     if (statSync(from).isDirectory()) {
       build(from, join(toDir, name));
       continue;
     }
+
     if (!name.endsWith(".ts")) continue;
-    const stripped = stripTypeScriptTypes(readFileSync(from, "utf8"), { mode: "strip" });
-    // `./x.ts` -> `./x.js` in static imports, re-exports and dynamic imports
-    let js = stripped.replace(/((?:from|import)\s*\(?\s*["'])(\.{1,2}\/[^"']+)\.ts(["'])/g, "$1$2.js$3");
-    // the source tree reaches the core at ../../core/src/, but dist/ lays it out as dist/core/
-    js = js.replaceAll("../../core/src/", "../core/").replaceAll("../../viewer/src/", "../viewer/").replaceAll("../../exporters/src/", "../exporters/");
-    writeFileSync(join(toDir, name.replace(/\.ts$/, ".js")), js);
+
+    const stripped = stripTypeScriptTypes(
+      readFileSync(from, "utf8"),
+      { mode: "strip" }
+    );
+
+    // Inject project version
+    let js = stripped.replaceAll("__VERSION__", version);
+
+    // .ts -> .js in imports
+    js = js.replace(
+      /((?:from|import)\s*\(?\s*["'])(\.{1,2}\/[^"']+)\.ts(["'])/g,
+      "$1$2.js$3"
+    );
+
+    // Adjust source paths to the dist layout
+    js = js
+      .replaceAll("../../core/src/", "../core/")
+      .replaceAll("../../viewer/src/", "../viewer/")
+      .replaceAll("../../exporters/src/", "../exporters/");
+
+    writeFileSync(
+      join(toDir, name.replace(/\.ts$/, ".js")),
+      js
+    );
+
     count++;
   }
 }

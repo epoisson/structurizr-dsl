@@ -2,7 +2,7 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versions: [SemVer](https://semver.org/).
 
-## [Unreleased]
+## [0.2.3] 2026-11-22
 
 ### Added
 - **`!const`, `!var` and `!include`** with `${NAME}` substitution (constants, variables, environment variables):

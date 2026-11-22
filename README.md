@@ -129,7 +129,7 @@ npm run build -w packages/cli      # writes packages/cli/dist (plain JavaScript,
 
 node packages/cli/dist/cli/bin.js check workspace.dsl   # run it directly
 cd packages/cli && npm link                             # then `structurizr-dsl ...` works everywhere
-cd packages/cli && npm pack                             # makes a .tgz: `npm install -g ./structurizr-dsl-cli-0.1.0.tgz`
+cd packages/cli && npm pack                             # makes a .tgz: `npm install -g ./structurizr-dsl-cli-x.y.z.tgz`
 ```
 
 `dist/` is self-contained: copy the folder anywhere and run `node dist/cli/bin.js`.
@@ -142,14 +142,14 @@ go to definition, completion, and a diagram preview (`Structurizr: Open Preview 
 title bar) with a view picker, pan/zoom, click-to-jump-to-source, live updates and light/dark themes.
 
 ```
-npm run package -w packages/extension      # writes packages/extension/structurizr-dsl-0.1.0.vsix (no vsce needed)
+npm run package -w packages/extension      # writes packages/extension/structurizr-dsl-x.y.z.vsix (no vsce needed)
 ```
 
 Install it any of these ways:
-1. Command line: `code --install-extension packages/extension/structurizr-dsl-0.1.0.vsix`
+1. Command line: `code --install-extension packages/extension/structurizr-dsl-x.y.z.vsix`
 2. In VS Code: Extensions view, `...` menu, "Install from VSIX...".
 3. Without packaging: build (`npm run build -w packages/extension`) and copy `packages/extension` to
-   `~/.vscode/extensions/local.structurizr-dsl-0.1.0/` (folder name `publisher.name-version`), then reload the window.
+   `~/.vscode/extensions/local.structurizr-dsl-x.y.z/` (folder name `publisher.name-version`), then reload the window.
 4. For development: open `packages/extension` in VS Code, build, press F5 (Extension Development Host).
 
 Status: the extension logic is unit-tested (language features, the preview payload, the webview page against a fake DOM,
