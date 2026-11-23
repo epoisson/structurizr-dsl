@@ -9,5 +9,5 @@
     "gen:inventory": "node scripts/gen-inventory.ts",
     "example": "node examples/usage.ts"
   },
-  "version": "0.2.3"
+  "version": "0.2.4"
 }

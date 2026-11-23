@@ -2,11 +2,11 @@
   "name": "structurizr-dsl",
   "displayName": "Structurizr DSL",
   "description": "Structurizr DSL language support: syntax highlighting, diagnostics, outline, hover, completion, diagram preview and export to SVG, PlantUML and Mermaid",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "publisher": "local",
   "license": "unlicense",
   "type": "module",
-  "icon": "images/icon.png",
+  "icon": "images/icon2.png",
   "engines": {
     "vscode": "^1.80.0"
   },

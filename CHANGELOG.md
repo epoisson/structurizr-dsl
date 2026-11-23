@@ -2,6 +2,11 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versions: [SemVer](https://semver.org/).
 
+## [0.2.4] 2026-11-23
+- **Version management**: source of truth is in VERSION
+- **Relase script**: now runs on Windows
+- **VS Extension Icon**: new icon
+
 ## [0.2.3] 2026-11-22
 
 ### Added
